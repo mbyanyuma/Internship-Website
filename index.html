@@ -1,0 +1,62 @@
+<html>
+<head>
+    <title>Kukua Weather Data</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+	<div id="tempcontainer"></div>
+	<script>
+		$(document).ready(function() {
+        Highcharts.setOptions({
+        global: {
+                useUTC: false
+                }
+        });
+        var options = {    
+            chart: {
+            renderTo: 'tempcontainer',/*the Id of the div that the chart is rendered in*/                 
+            height:320,
+ 
+                    },    
+        title: {    
+            text: 'My Kukua Chart'
+        },
+        events:{               
+            load: refreshChart() /*Load: Fires when the chart is finished loading.*/
+        },                      /* it will call the function refreshChart() upon completion of rendering the chart */
+        tooltip: {             
+        },
+            valueSuffix: ' C'
+        },
+        xAxis: {
+            type: 'datetime'  /*X Axis is of datetime type*/                                        
+        },
+        yAxis: {
+            type: 'linear',
+            title: {
+                text: 'Temperature ( C)'
+            },
+            },       
+            series: [{
+            name: 'Temp'
+            }]
+        }
+ 
+        $.getJSON("data.php", function(json) {    /*Get the array data in data.php using jquery getJSON function*/
+            options.series[0].data = json;        /*assign the array variable to chart data object*/
+            chart = new Highcharts.Chart(options); /*create a new chart*/
+        });
+        
+        function refreshChart(){                 /*function is called every set interval to refresh(recreate the chart) with the new data */
+            setInterval(function(){
+                $.getJSON("data.php", function(json) {
+                    options.series[0].data = json;
+                    chart = new Highcharts.Chart(options);
+                });
+            },60000);
+        }
+        });
+	</script>
+</body>
+</html>
