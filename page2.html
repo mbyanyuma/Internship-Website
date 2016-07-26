@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kukua Weather Data</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>    
+<script src="http://code.highcharts.com/modules/data.js"></script> 
+<script src="http://code.highcharts.com/modules/exporting.js"></script>		
+</head>
+	<body>
+        <div class="container-fluid">
+            <nav class="navbar navbar-default">
+             <!-- Logo -->
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">Kukua Weather Data</a>
+            </div>
+            <!-- Menu Items -->
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <!-- drop down menu -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Charts<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="active"><a href="page2.html">Kimashuku Tz</a></li>
+                            <li><a href="page3.html">Mshizii Tz</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+<div id="container" style="min-width: 400px; height: 500px; margin: 0 auto"></div>
+        
+        <script type="text/javascript">
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        $.getJSON("dataTwo.php", function(json) {
+	    
+		    chart = new Highcharts.Chart({
+	            chart: {
+	                renderTo: 'container',
+	                type: 'line',
+	               /* marginRight: 130,
+	                marginBottom: 125 */ 
+	            },
+	            title: {
+	                text: 'Kimashuku, Tanzania',
+	                x: -20 //center
+	            },
+	            subtitle: {
+	                text: 'Source: Kukua.cc',
+	                x: -20
+	            },
+	            xAxis: {
+	               type: 'datetime',
+                    categories: ['2016-03-10 13:05:22', '13:05:23', '13:05:24', '13:05:25', '16:10:02', '16:05:02',
+                                 '15:55:02', '16:00:02', '15:50:02', '14:05:19', '14:05:20', '14:05:21', '14:05:22',
+                                 '14:05:23', '14:05:24', '14:05:25', '15:05:21', '15:05:22', '15:05:23', '15:05:24',
+                                 '15:05:25', '15:05:26', '15:05:27', '15:05:28', '16:05:24', '16:05:25', '16:05:26',
+                                 '16:05:27', '16:05:28', '16:05:29', '16:05:30', '16:05:31', '17:05:22', '17:05:23',
+                                 '17:05:24', '17:05:25', '17:05:26']
+	            },
+	            yAxis: {
+	                title: {
+	                    text: '.'
+	                },
+	                plotLines: [{
+	                    value: 0,
+	                    width: 1,
+	                    color: '#808080'
+	                }]
+	            },
+	            tooltip: {
+	                formatter: function() {
+	                        return '<b>'+ this.series.name +'</b><br/>'+
+	                        this.x +': '+ this.y;
+	                }
+	            },
+	            legend: {
+	                layout: 'vertical',
+	                align: 'right',
+	                verticalAlign: 'top',
+	                x: -10,
+	                y: 100,
+	                borderWidth: 0
+	            },
+	            series: json
+	        });
+	    });
+    
+    });
+    
+});
+		</script>
+        </div>
+	</body>
+</html>
