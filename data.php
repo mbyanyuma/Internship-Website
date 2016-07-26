@@ -32,6 +32,7 @@ while ($rrrow = $statement->fetch(PDO::FETCH_ASSOC)) {
     $rows2['data'][] = $rrrow['humid'];  
 }
 
+//below: puts the data in a master array and outputs the JSON encoded string
 $result = array();
 array_push($result,$rows);
 array_push($result,$rows1);
